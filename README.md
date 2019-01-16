@@ -1,6 +1,6 @@
 # springboot-mybatis
 
-这是一个 Springboot, Mybatis(Plus) 的项目模版。在基础框架之上，从 Spring MVC/Hibernate 框架中简单移植了如下内容：
+因为项目需要，做了一个 Springboot, Mybatis(Plus) 的项目模版。在基础框架之上，从小鹰软件的 Spring MVC/JPA 框架中简单移植了如下内容：
 由于我并不欣赏 Mybatis 以及 Plus 的理念和实现，因此不打算继续移植或优化下去。
 
 - 增删查改框架
