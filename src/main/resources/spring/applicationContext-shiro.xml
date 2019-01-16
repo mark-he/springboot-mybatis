@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    default-lazy-init="true">
+
+    <!-- Shiro -->
+    <bean class="com.eagletsoft.boot.framework.security.DefaultShiroRealm" id="shiroDbRealm" />
+    
+    <bean class="org.apache.shiro.cache.MemoryConstrainedCacheManager" id="shiroCacheManager" />
+    
+    <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager" >
+        <property name="realm" ref="shiroDbRealm"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+    </bean>
+
+    <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter" >
+        <property name="securityManager" ref="securityManager" />
+        <property name="loginUrl" value="/login" />
+        <property name="successUrl" value="/index" />
+        <property name="unauthorizedUrl" value="/unauthorized" />
+        <property name="filters">
+            <map>
+                <entry key="anon">
+                    <bean class="com.eagletsoft.boot.auth.core.filter.AnonymousFilter" >
+                        <property name="userId" value="Anonymous" />
+                        <property name="username" value="Anonymous" />
+                    </bean>
+                </entry>
+                <entry key="oauth">
+                    <bean class="com.eagletsoft.boot.auth.core.filter.AuthFilter" >
+                        <property name="scope" value="" />
+                        <property name="resourceId" value="" />
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /public/** = anon
+
+                # oauth
+                /v1/** = oauth
+                /** = anon
+            </value>
+        </property>
+    </bean>
+
+</beans>
