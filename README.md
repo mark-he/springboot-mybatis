@@ -14,7 +14,7 @@
 - /auth
 Token 授权和验证
 - /profile
-基础的用户管理项目，未完成
+基础的用户管理项目，未完成接口部分
 - /framework
 框架源代码
 - /projectname
